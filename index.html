@@ -20,7 +20,9 @@
       :root {
         font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
           Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        color-scheme: light dark;
+        /* color-scheme: light dark; */
+        background: url("./BACKGROUND.png") no-repeat;
+        background-size: 100%;
       }
       html,
       body {
@@ -40,6 +42,10 @@
       * {
         -webkit-tap-highlight-color: transparent;
       }
+      h1 {
+        color: white;
+        text-align: center;
+      }
       .card {
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 16px;
@@ -50,10 +56,12 @@
         display: grid;
         gap: 8px;
         margin-bottom: 12px;
+        color: white;
       }
       label {
         font-weight: 600;
       }
+      select,
       input,
       textarea,
       button {
@@ -79,6 +87,7 @@
         padding: 6px 10px;
         border-radius: 999px;
         font-size: 14px;
+        color: black;
       }
       .status.online {
         background: #dcfce7;
@@ -101,72 +110,73 @@
     </style>
   </head>
   <body>
-    <h1>Offline Form → Google Sheets</h1>
-    <p class="muted">
+    <h1>Youth Anniversary Registration</h1>
+    <!-- <p class="muted">
       Tablet‑optimized. Works offline. Queues submissions locally and syncs when
       back online.
-    </p>
-
-    <div id="net" class="status">Detecting…</div>
+    </p> -->
 
     <div class="card" style="margin-top: 16px">
       <form id="form">
         <div class="row">
           <label for="name">Name</label>
+          <input id="name" name="name" required autocomplete="name" />
+        </div>
+        <div class="row">
+          <label for="name">FB Name</label>
+          <input id="fbName" name="fb name" required autocomplete="FB Name" />
+        </div>
+        <div class="row">
+          <label for="name">Age</label>
+          <input id="age" name="age" required autocomplete="age" />
+        </div>
+        <div class="row">
+          <label for="school/work">School/Work</label>
           <input
-            id="name"
-            name="name"
+            id="schoolWork"
+            name="School/Work"
             required
-            placeholder="e.g., Anya Taylor"
-            autocomplete="name"
+            autocomplete="School/Work"
           />
         </div>
         <div class="row">
-          <label for="email">Email</label>
+          <label for="birthday">Birthday</label>
           <input
-            id="email"
-            name="email"
-            type="email"
+            id="birthday"
+            name="birthday"
             required
-            placeholder="e.g., anya@example.com"
-            autocomplete="email"
-            inputmode="email"
-            autocapitalize="off"
-            autocorrect="off"
+            autocomplete="Birthday"
           />
         </div>
         <div class="row">
-          <label for="message">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            required
-            placeholder="Your message…"
-            enterkeyhint="send"
-            autocomplete="off"
-          ></textarea>
+          <label for="firstTimer">First Timer?</label>
+          <select id="firstTimer" autocomplete="First Timer">
+            <option value="Yes">Yes</option>
+            <option value="Yes">No</option>
+          </select>
         </div>
         <div class="row">
-          <button type="submit">Submit</button>
+          <button id="sub" type="submit">Submit</button>
         </div>
         <div id="toast" class="toast muted"></div>
       </form>
     </div>
 
     <div class="card" style="margin-top: 12px">
-      <strong>Device controls</strong>
+      <strong>Sync now?</strong>
+      <div id="net" class="status">Detecting…</div>
       <p class="muted">
         Submissions waiting to upload: <span id="qcount">0</span>
       </p>
       <div class="actions">
         <button id="syncBtn" type="button">Sync now</button>
-        <button id="keepAwakeBtn" type="button">Keep screen awake</button>
-        <button id="lockPortraitBtn" type="button">Lock to portrait</button>
+        <!-- <button id="keepAwakeBtn" type="button">Keep screen awake</button>
+        <button id="lockPortraitBtn" type="button">Lock to portrait</button> -->
       </div>
       <p class="muted" style="margin-top: 8px">
-        Tip: Install to Home Screen for best kiosk‑like experience. On iPad:
+        <!-- Tip: Install to Home Screen for best kiosk‑like experience. On iPad:
         Share → Add to Home Screen. On Android: ⋮ menu → Install app.
+      </p> -->
       </p>
     </div>
 

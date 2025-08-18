@@ -1,6 +1,6 @@
 // ======= CONFIG =======
 const ENDPOINT_URL =
-  "https://script.google.com/macros/s/AKfycby2FhxEXf82172AIzqHkgQF3gzuVtWc_vFo45C5Q4uzQeLqjpCD4KRX8GkclKAx7kHQ/exec";
+  "https://script.google.com/macros/s/AKfycbztVqY65SxDlQq4XU5uyYmFvs99I4fPR1FkGPaVNQcbcivOAthwxh9B2Y3CDk94cJGa/exec";
 const SHARED_SECRET = "CHANGE_ME_SHARED_SECRET"; // must match Code.gs
 
 // ======= Utilities =======
@@ -210,19 +210,36 @@ window.addEventListener("offline", setNetStatus);
 $("#form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  const button = $("#sub");
+
+  button.textContent = "Submitting...";
+  button.disabled = true;
+
   const payload = {
     id: undefined, // will be filled by IndexedDB
     uid: uid(),
     name: $("#name").value.trim(),
-    email: $("#email").value.trim(),
-    message: $("#message").value.trim(),
-    client_ts: new Date().toISOString(),
-    ua: navigator.userAgent,
+    fbName: $("#fbName").value.trim(),
+    age: $("#age").value.trim(),
+    schoolWork: $("#schoolWork").value.trim(),
+    birthday: $("#birthday").value.trim(),
+    firstTimer: $("#firstTimer").value.trim(),
+    // client_ts: new Date().toISOString(),
+    // ua: navigator.userAgent,
     token: SHARED_SECRET,
   };
 
-  if (!payload.name || !payload.email || !payload.message) {
+  if (
+    !payload.name ||
+    !payload.fbName ||
+    !payload.age ||
+    !payload.schoolWork ||
+    !payload.birthday ||
+    !payload.firstTimer
+  ) {
     toast("Please fill out all fields.");
+    button.textContent = "Submit";
+    button.disabled = false;
     return;
   }
 
@@ -232,6 +249,8 @@ $("#form").addEventListener("submit", async (e) => {
     const ok = await sendOne(payload);
     if (ok) {
       e.target.reset();
+      button.textContent = "Submit"; // reset
+      button.disabled = false;
       toast("Submitted!");
       return; // nothing to queue
     }
@@ -239,6 +258,8 @@ $("#form").addEventListener("submit", async (e) => {
   } catch (_) {
     await addToQueue(payload);
     await updateQueueCount();
+    button.textContent = "Submit"; // reset
+    button.disabled = false;
     e.target.reset();
     toast("Saved offline. Will sync later.");
     // trigger a background sync if possible
@@ -251,8 +272,11 @@ $("#form").addEventListener("submit", async (e) => {
       }
     }
   }
+
+  button.textContent = "Submit"; // reset
+  button.disabled = false;
 });
 
 $("#syncBtn").addEventListener("click", () => syncAll());
-$("#keepAwakeBtn").addEventListener("click", () => requestWakeLock());
-$("#lockPortraitBtn").addEventListener("click", () => lockPortrait());
+// $("#keepAwakeBtn").addEventListener("click", () => requestWakeLock());
+// $("#lockPortraitBtn").addEventListener("click", () => lockPortrait());
