@@ -39,8 +39,9 @@ function withDB() {
     const open = indexedDB.open(DB_NAME, 1);
     open.onupgradeneeded = () => {
       const db = open.result;
-      if (!db.objectStoreNames.contains(STORE))
+      if (!db.objectStoreNames.contains(STORE)) {
         db.createObjectStore(STORE, { keyPath: "id", autoIncrement: true });
+      }
     };
     open.onsuccess = () => resolve(open.result);
     open.onerror = () => reject(open.error);
@@ -51,7 +52,13 @@ async function addToQueue(payload) {
   const db = await withDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE, "readwrite");
-    tx.objectStore(STORE).add(payload);
+    const store = tx.objectStore(STORE);
+
+    // 🔑 Ensure IndexedDB generates the ID
+    const cleanPayload = { ...payload };
+    delete cleanPayload.id;
+
+    store.add(cleanPayload);
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);
   });
@@ -80,7 +87,7 @@ async function clearByIds(ids) {
 
 async function updateQueueCount() {
   const items = await getAllQueued();
-  $("#qcount").textContent = items.length;
+  document.querySelector("#qcount").textContent = items.length;
 }
 
 // ======= Sync logic =======
