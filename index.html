@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Offline Form → Google Sheets</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#111827" />
+    <!-- iOS/iPadOS PWA helpers -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <style>
+      :root {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+          Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color-scheme: light dark;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 24px;
+        padding-bottom: calc(24px + env(safe-area-inset-bottom));
+      }
+      @supports (height: 100svh) {
+        body {
+          min-height: 100svh;
+        }
+      }
+      * {
+        -webkit-tap-highlight-color: transparent;
+      }
+      .card {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+      }
+      .row {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      label {
+        font-weight: 600;
+      }
+      input,
+      textarea,
+      button {
+        font: inherit;
+        font-size: 18px;
+        padding: 14px 14px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        min-height: 48px;
+        touch-action: manipulation;
+      }
+      textarea {
+        min-height: 120px;
+      }
+      button {
+        cursor: pointer;
+        min-width: 48px;
+      }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 14px;
+      }
+      .status.online {
+        background: #dcfce7;
+      }
+      .status.offline {
+        background: #fee2e2;
+      }
+      .muted {
+        color: #6b7280;
+        font-size: 13px;
+      }
+      .toast {
+        margin-top: 10px;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Offline Form → Google Sheets</h1>
+    <p class="muted">
+      Tablet‑optimized. Works offline. Queues submissions locally and syncs when
+      back online.
+    </p>
+
+    <div id="net" class="status">Detecting…</div>
+
+    <div class="card" style="margin-top: 16px">
+      <form id="form">
+        <div class="row">
+          <label for="name">Name</label>
+          <input
+            id="name"
+            name="name"
+            required
+            placeholder="e.g., Anya Taylor"
+            autocomplete="name"
+          />
+        </div>
+        <div class="row">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            placeholder="e.g., anya@example.com"
+            autocomplete="email"
+            inputmode="email"
+            autocapitalize="off"
+            autocorrect="off"
+          />
+        </div>
+        <div class="row">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            placeholder="Your message…"
+            enterkeyhint="send"
+            autocomplete="off"
+          ></textarea>
+        </div>
+        <div class="row">
+          <button type="submit">Submit</button>
+        </div>
+        <div id="toast" class="toast muted"></div>
+      </form>
+    </div>
+
+    <div class="card" style="margin-top: 12px">
+      <strong>Device controls</strong>
+      <p class="muted">
+        Submissions waiting to upload: <span id="qcount">0</span>
+      </p>
+      <div class="actions">
+        <button id="syncBtn" type="button">Sync now</button>
+        <button id="keepAwakeBtn" type="button">Keep screen awake</button>
+        <button id="lockPortraitBtn" type="button">Lock to portrait</button>
+      </div>
+      <p class="muted" style="margin-top: 8px">
+        Tip: Install to Home Screen for best kiosk‑like experience. On iPad:
+        Share → Add to Home Screen. On Android: ⋮ menu → Install app.
+      </p>
+    </div>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
