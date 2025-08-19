@@ -1,7 +1,7 @@
 {
   "name": "Youth Anniversary Registration",
-  "short_name": "Offline Form",
-  "start_url": "/",
+  "short_name": "Registration",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
