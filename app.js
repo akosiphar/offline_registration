@@ -1,6 +1,6 @@
 // ======= CONFIG =======
 const ENDPOINT_URL =
-  "https://script.google.com/macros/s/AKfycbztVqY65SxDlQq4XU5uyYmFvs99I4fPR1FkGPaVNQcbcivOAthwxh9B2Y3CDk94cJGa/exec";
+  "https://script.google.com/macros/s/AKfycbzt8i-I_IgqnsT9CDzR0DR28R9wnMxsV1xQhEMil1pUA5n2vLX2ThDXkbM5vVyiGKto/exec";
 const SHARED_SECRET = "CHANGE_ME_SHARED_SECRET"; // must match Code.gs
 
 // ======= Utilities =======
@@ -226,6 +226,7 @@ $("#form").addEventListener("submit", async (e) => {
     schoolWork: $("#schoolWork").value.trim(),
     birthday: $("#birthday").value.trim(),
     firstTimer: $("#firstTimer").value.trim(),
+    invited: $("#invited").value.trim(),
     // client_ts: new Date().toISOString(),
     // ua: navigator.userAgent,
     token: SHARED_SECRET,
@@ -237,7 +238,8 @@ $("#form").addEventListener("submit", async (e) => {
     !payload.age ||
     !payload.schoolWork ||
     !payload.birthday ||
-    !payload.firstTimer
+    !payload.firstTimer ||
+    !payload.invited
   ) {
     toast("Please fill out all fields.");
     button.textContent = "Submit";
