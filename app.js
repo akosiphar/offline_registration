@@ -181,7 +181,7 @@ window.addEventListener("load", async () => {
 
   if ("serviceWorker" in navigator) {
     try {
-      const reg = await navigator.serviceWorker.register("/sw.js");
+      const reg = await navigator.serviceWorker.register("./sw.js");
       // Background Sync when available (not on iOS Safari as of now)
       if ("sync" in reg) {
         window.addEventListener("online", () =>

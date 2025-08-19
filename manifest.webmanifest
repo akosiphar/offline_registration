@@ -1,7 +1,7 @@
 {
   "name": "Youth Anniversary Registration",
   "short_name": "Registration",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
