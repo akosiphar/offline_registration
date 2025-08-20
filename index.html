@@ -99,8 +99,12 @@
         background: #fee2e2;
       }
       .muted {
-        color: #6b7280;
-        font-size: 13px;
+        color: #838996;
+        font-size: 15px;
+      }
+      .confirmation {
+        color: #00ff37;
+        font-size: 15px;
       }
       .toast {
         margin-top: 10px;
@@ -130,15 +134,27 @@
         <form id="form">
           <div class="row">
             <label for="name">Name</label>
-            <input id="name" name="name" required autocomplete="name" />
+            <input
+              id="name"
+              name="name"
+              placeholder="First Name Last Name"
+              required
+              autocomplete="Name"
+            />
           </div>
           <div class="row">
             <label for="name">FB Name</label>
-            <input id="fbName" name="fb name" required autocomplete="FB Name" />
+            <input
+              id="fbName"
+              name="fb name"
+              placeholder="Your name in Facebook"
+              required
+              autocomplete="FB Name"
+            />
           </div>
           <div class="row">
             <label for="name">Age</label>
-            <input id="age" name="age" required autocomplete="age" />
+            <input id="age" name="age" required autocomplete="Age" />
           </div>
           <div class="row">
             <label for="school/work">School/Work</label>
@@ -146,7 +162,7 @@
               id="schoolWork"
               name="School/Work"
               required
-              autocomplete="School/Work"
+              autocomplete="School"
             />
           </div>
           <div class="row">
@@ -154,6 +170,7 @@
             <input
               id="birthday"
               name="birthday"
+              placeholder="MM DD, YYYY"
               required
               autocomplete="Birthday"
             />
@@ -170,6 +187,7 @@
             <input
               id="invited"
               name="invited"
+              placeholder="Who invites you"
               required
               autocomplete="invited by"
             />
@@ -177,7 +195,7 @@
           <div class="row">
             <button id="sub" type="submit">Submit</button>
           </div>
-          <div id="toast" class="toast muted"></div>
+          <div id="toast" class="toast confirmation"></div>
         </form>
       </div>
 

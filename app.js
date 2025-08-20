@@ -24,7 +24,7 @@ function setNetStatus() {
   }
 }
 
-function toast(msg, ms = 2500) {
+function toast(msg, ms = 3000) {
   const el = $("#toast");
   el.textContent = msg;
   if (ms) setTimeout(() => (el.textContent = ""), ms);
