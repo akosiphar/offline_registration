@@ -284,3 +284,14 @@ $("#form").addEventListener("submit", async (e) => {
 $("#syncBtn").addEventListener("click", () => syncAll());
 // $("#keepAwakeBtn").addEventListener("click", () => requestWakeLock());
 // $("#lockPortraitBtn").addEventListener("click", () => lockPortrait());
+
+const select = document.getElementById("firstTimer");
+const extraInput = document.getElementById("invited");
+
+  select.addEventListener("change", () => {
+    if (select.value === "yes") {
+      extraInput.style.display = "block";
+    } else {
+      extraInput.style.display = "none";
+    }
+  });
