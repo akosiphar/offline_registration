@@ -289,7 +289,7 @@ const select = document.getElementById("firstTimer");
 const extraInput = document.getElementById("invited");
 
   select.addEventListener("change", () => {
-    if (select.value === "yes") {
+    if (select.value === "Yes") {
       extraInput.style.display = "block";
     } else {
       extraInput.style.display = "none";
