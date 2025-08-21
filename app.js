@@ -286,7 +286,7 @@ $("#syncBtn").addEventListener("click", () => syncAll());
 // $("#lockPortraitBtn").addEventListener("click", () => lockPortrait());
 
 const select = document.getElementById("firstTimer");
-const extraInput = document.getElementById("invited");
+const extraInput = document.getElementById("box");
 
   select.addEventListener("change", () => {
     if (select.value === "Yes") {
