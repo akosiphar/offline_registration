@@ -1,6 +1,6 @@
 // ======= CONFIG =======
 const ENDPOINT_URL =
-  "https://script.google.com/macros/s/AKfycbzt8i-I_IgqnsT9CDzR0DR28R9wnMxsV1xQhEMil1pUA5n2vLX2ThDXkbM5vVyiGKto/exec";
+  "https://script.google.com/macros/s/AKfycbwaY6tIToLvsBB4G2QEwnH96IPZTNFsrK5T2TEqA4V2IX1a8NWLxCIHsa9sH_UQpoLB/exec";
 const SHARED_SECRET = "CHANGE_ME_SHARED_SECRET"; // must match Code.gs
 
 // ======= Utilities =======
@@ -224,7 +224,6 @@ $("#form").addEventListener("submit", async (e) => {
     fbName: $("#fbName").value.trim(),
     age: $("#age").value.trim(),
     schoolWork: $("#schoolWork").value.trim(),
-    birthday: $("#birthday").value.trim(),
     firstTimer: $("#firstTimer").value.trim(),
     invited: $("#invited").value.trim(),
     // client_ts: new Date().toISOString(),
@@ -237,15 +236,26 @@ $("#form").addEventListener("submit", async (e) => {
     !payload.fbName ||
     !payload.age ||
     !payload.schoolWork ||
-    !payload.birthday ||
-    !payload.firstTimer ||
-    !payload.invited
+    !payload.firstTimer
+    // !payload.invited
   ) {
     toast("Please fill out all fields.");
     button.textContent = "Submit";
     button.disabled = false;
     return;
   }
+
+  // Will show the invited by textbox once "Yes" is selected
+  const select = document.getElementById("firstTimer");
+  const extraInput = document.getElementById("box");
+
+  select.addEventListener("change", () => {
+    if (select.value === "Yes") {
+      extraInput.style.display = "block";
+    } else {
+      extraInput.style.display = "none";
+    }
+  });
 
   // Try live first; if it fails (or offline), queue
   try {
@@ -256,6 +266,9 @@ $("#form").addEventListener("submit", async (e) => {
       button.textContent = "Submit"; // reset
       button.disabled = false;
       toast("Submitted!");
+      extraInput.style.display = "none";
+      $("#mainContainer").style.display = "none";
+      document.getElementById("thankYouPage").style.display = "block";
       return; // nothing to queue
     }
     throw new Error("server");
@@ -265,6 +278,9 @@ $("#form").addEventListener("submit", async (e) => {
     button.textContent = "Submit"; // reset
     button.disabled = false;
     e.target.reset();
+    extraInput.style.display = "none";
+    $("#mainContainer").style.display = "none";
+    document.getElementById("thankYouPage").style.display = "block";
     toast("Saved offline. Will sync later.");
     // trigger a background sync if possible
     if (navigator.serviceWorker && navigator.serviceWorker.ready) {
@@ -281,6 +297,11 @@ $("#form").addEventListener("submit", async (e) => {
   button.disabled = false;
 });
 
+function goBack() {
+  document.getElementById("thankYouPage").style.display = "none";
+  $("#mainContainer").style.display = "block";
+}
+
 $("#syncBtn").addEventListener("click", () => syncAll());
 // $("#keepAwakeBtn").addEventListener("click", () => requestWakeLock());
 // $("#lockPortraitBtn").addEventListener("click", () => lockPortrait());
@@ -288,10 +309,10 @@ $("#syncBtn").addEventListener("click", () => syncAll());
 const select = document.getElementById("firstTimer");
 const extraInput = document.getElementById("box");
 
-  select.addEventListener("change", () => {
-    if (select.value === "Yes") {
-      extraInput.style.display = "block";
-    } else {
-      extraInput.style.display = "none";
-    }
-  });
+select.addEventListener("change", () => {
+  if (select.value === "Yes") {
+    extraInput.style.display = "block";
+  } else {
+    extraInput.style.display = "none";
+  }
+});
