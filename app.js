@@ -245,18 +245,6 @@ $("#form").addEventListener("submit", async (e) => {
     return;
   }
 
-  // Will show the invited by textbox once "Yes" is selected
-  const select = document.getElementById("firstTimer");
-  const extraInput = document.getElementById("box");
-
-  select.addEventListener("change", () => {
-    if (select.value === "Yes") {
-      extraInput.style.display = "block";
-    } else {
-      extraInput.style.display = "none";
-    }
-  });
-
   // Try live first; if it fails (or offline), queue
   try {
     if (!navigator.onLine) throw new Error("offline");

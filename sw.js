@@ -1,10 +1,10 @@
 const CACHE = "offline-form-v1";
 const APP_ASSETS = [
-  "/",
-  "/index.html",
-  "/app.js",
-  "/manifest.webmanifest",
-  // add '/icons/icon-192.png', '/icons/icon-512.png' when you add icons
+  "./",
+  "./index.html",
+  "./app.js",
+  "./manifest.webmanifest",
+  // add './icons/icon-192.png', './icons/icon-512.png' when you add icons
 ];
 
 self.addEventListener("install", (event) => {
@@ -42,7 +42,7 @@ self.addEventListener("fetch", (event) => {
               caches.open(CACHE).then((c) => c.put(req, copy));
               return res;
             })
-            .catch(() => caches.match("/index.html"))
+            .catch(() => caches.match("./index.html"))
       )
     );
   }
